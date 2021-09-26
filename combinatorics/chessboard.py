@@ -20,14 +20,14 @@ class Chessboard:
   def reset(self) :
     self.myBoard = np.zeros(self.nRow,self.nCol)
 
-  def get_all_case_to_win_from_empty_board() :
+  def get_all_case_to_win_from_empty_board(self) :
     result = np.empty((0,4,2))
-    for i in range(0,BOARD_LENGTH):
-      for j in range(0,BOARD_HEIGHT):
+    for i in range(0,self.nRow):
+      for j in range(0,self.nCol):
         # i+3 < BOARD_LENGTH?
-        isGoodForLength = (i+3<BOARD_LENGTH)
+        isGoodForLength = (i+3<self.nRow)
         # j+3 < BOARD_HEIGHT?
-        isGoodForHeight = (j+3<BOARD_HEIGHT)
+        isGoodForHeight = (j+3<self.nCol)
         if isGoodForLength :
           temp = np.array([[[i,j],[i+1,j],[i+2,j],[i+3,j]]])
           result = np.append(result,temp, axis=0)
