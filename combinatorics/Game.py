@@ -1,5 +1,6 @@
 import random
 import numpy as np
+from Player import Player
 
 class Game:
 
@@ -8,7 +9,7 @@ class Game:
     self.nRow = num_line
     self.nCol = num_colone
     self.myBoard = np.zeros((num_line,num_colone),dtype=np.int)
-    self.winBoard = self.get_all_case_to_win_from_empty_board()
+    self.winBoard = self.get_win_board()
 
   def is_complet(self):
     for line in self.myBoard :
@@ -20,7 +21,7 @@ class Game:
   def reset(self) :
     self.myBoard = np.zeros(self.nRow,self.nCol)
 
-  def get_all_case_to_win_from_empty_board(self) :
+  def get_win_board(self) :
     result = np.empty((0,4,2),dtype=np.int)
     for i in range(0,self.nRow):
       for j in range(0,self.nCol):
@@ -48,7 +49,7 @@ class Game:
         return True
     return False
   
-  def play(self,x,player):
+  def play(self,x,player:Player):
   # 如果落子成功，则返回True，否则说明该列已满，或者列序号超出了棋盘，并返回False
     # 判断期棋盘是否满了
     if self.is_complet() or x<0 or x>=self.nCol :
@@ -64,17 +65,17 @@ class Game:
     # 如果整列都已落子，也就是说while没有执行，则有大问题！！！
     if i == -1 :
       return False
-    self.myBoard[i,x] = player
+    self.myBoard[i,x] = player.signal
     return True
   
   def is_finished(self):
     return self.is_complet() or self.has_won()
 
 
-  def run(self,player1, player2):
+  def run_old(self, player1:Player, player2:Player):
     while True:
       # input player 1
-      x = int(input("player 1 :"))
+      x = player1.getOneStep()
       while not self.play(x,player1):
         x = int(input("player 1 (again):"))
       print(self.myBoard)
@@ -125,4 +126,22 @@ class Game:
         print("END")
         break
 
-  
+  def run(self,*players:Player):
+    flag = True
+    while flag :
+      for player in players:
+        while not self.play(player.getOneStep(0,self.nCol-1),player):
+          print("Retry")
+        # if player.isHuman:
+        print(self.myBoard)
+        # 游戏判断机制
+        if self.has_won():
+          print(player.name,"won")
+          flag = not flag
+          break
+        elif self.is_complet():
+          print("END")
+          flag = not flag
+          break
+
+
