@@ -5,6 +5,7 @@ class Player:
     self.signal = signal
     self.name = name
     self.isHuman = ishuman
+    self.nbStep = 0
   
   def getOneStep_fromTerminal(self,min,max):
     while True:
@@ -27,3 +28,6 @@ class Player:
     if self.isHuman:
       return self.getOneStep_fromTerminal(min,max)
     return self.getOneStep_fromRandom(min,max)
+
+  def reset(self):
+    self.nbStep = 0

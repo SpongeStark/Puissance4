@@ -18,8 +18,10 @@ class Game:
           return False
     return True
   
-  def reset(self) :
-    self.myBoard = np.zeros(self.nRow,self.nCol)
+  def reset(self,players) :
+    self.myBoard = np.zeros((self.nRow,self.nCol),dtype=np.int)
+    for player in players:
+      player.reset()
 
   def get_win_board(self) :
     result = np.empty((0,4,2),dtype=np.int)
@@ -66,6 +68,7 @@ class Game:
     if i == -1 :
       return False
     self.myBoard[i,x] = player.signal
+    player.nbStep += 1
     return True
   
   def is_finished(self):
@@ -126,22 +129,21 @@ class Game:
         print("END")
         break
 
-  def run(self,*players:Player):
-    flag = True
-    while flag :
+  def run(self,*players:Player,showChessBoard=True):
+    self.reset(players)
+    while True :
       for player in players:
         while not self.play(player.getOneStep(0,self.nCol-1),player):
           print("Retry")
         # if player.isHuman:
-        print(self.myBoard)
+        if(showChessBoard):
+          print(self.myBoard)
         # 游戏判断机制
         if self.has_won():
           print(player.name,"won")
-          flag = not flag
-          break
+          return player
         elif self.is_complet():
           print("END")
-          flag = not flag
-          break
+          return 0
 
 
