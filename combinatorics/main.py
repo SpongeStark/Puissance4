@@ -22,7 +22,7 @@ countWin_player2 = [0]*(BOARD_HEIGHT*BOARD_LENGTH//2+1)
 
 for i in range(0,NUM_ROUND):
     result = oneGame.run(player1,player2,showChessBoard=False)
-    if not result == 0 :   
+    if not result == 0 :  
         if result.signal == player1.signal:
             countWin_player1[result.nbStep] += 1
         elif result.signal == player2.signal:
