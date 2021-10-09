@@ -133,7 +133,7 @@ class Game:
     self.reset(players)
     while True :
       for player in players:
-        while not self.play(player.getOneStep(0,self.nCol-1),player):
+        while not self.play(player.getOneStep(self),player):
           print("Retry")
         # if player.isHuman:
         if(showChessBoard):

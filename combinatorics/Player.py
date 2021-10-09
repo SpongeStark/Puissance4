@@ -1,10 +1,13 @@
+# from abc import abstractmethod
 import random
 
+# import Game
+
 class Player:
-  def __init__(self,signal=1,name="untitled",ishuman=True):
+  def __init__(self,signal=1,name="untitled"):
     self.signal = signal
     self.name = name
-    self.isHuman = ishuman
+    self.isHuman = False
     self.nbStep = 0
   
   def getOneStep_fromTerminal(self,min,max):
@@ -24,10 +27,12 @@ class Player:
     print(self.name,"has finished one step")
     return random.randint(min,max)
 
-  def getOneStep(self,min,max):
-    if self.isHuman:
-      return self.getOneStep_fromTerminal(min,max)
-    return self.getOneStep_fromRandom(min,max)
+  # @abstractmethod
+  def getOneStep(self, game):
+    min = 0
+    max = game.nCol-1
+    print(self.name,"has finished one step")
+    return random.randint(min,max)
 
   def reset(self):
     self.nbStep = 0
