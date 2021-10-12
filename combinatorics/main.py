@@ -7,17 +7,19 @@ import matplotlib.pyplot as pyplot
 
 from RandomPlayer import RandomPlayer
 from HumanPlayer import HumanPlayer
+from MonteCarloPlayer import MonteCarloPlayer
 
 BOARD_LENGTH = 7
 BOARD_HEIGHT = 6
 PLAYER1 = 1
 PLAYER2 = -1
-NUM_ROUND = 500
+NUM_ROUND = 10
 
 oneGame = Game(BOARD_HEIGHT,BOARD_LENGTH)
 # oneGame.run(PLAYER1,PLAYER2)
-player1 = HumanPlayer(signal=PLAYER1,name="YK")
-player2 = RandomPlayer(signal=PLAYER2,  name="GYH")
+player1 = RandomPlayer(signal=PLAYER1,name="YK")
+player2 = MonteCarloPlayer(signal=PLAYER2, name="GYH")
+oneGame.run(player1,player2)
 oneGame.run(player1,player2)
 
 # countWin_player1 = [0]*(BOARD_HEIGHT*BOARD_LENGTH//2+1)

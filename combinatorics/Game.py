@@ -129,21 +129,25 @@ class Game:
         print("END")
         break
 
-  def run(self,*players:Player,showChessBoard=True):
-    self.reset(players)
+  def run(self,*players:Player,showChessBoard=True,showResult=True,showWarnings=True,restart=True):
+    if restart:
+      self.reset(players)
     while True :
       for player in players:
         while not self.play(player.getOneStep(self),player):
-          print("Retry")
+          if showWarnings:
+            print("Retry") ######!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! wait to progress
         # if player.isHuman:
         if(showChessBoard):
           print(self.myBoard)
         # 游戏判断机制
         if self.has_won():
-          print(player.name,"won")
+          if showResult:
+            print(player.name,"won")
           return player
         elif self.is_complet():
-          print("END")
+          if showResult:
+            print("END")
           return 0
 
 

@@ -10,5 +10,5 @@ class RandomPlayer(Player):
   def getOneStep(self, game):
     min = 0
     max = game.nCol-1
-    print(self.name,"has finished one step")
+    # print(self.name,"has finished one step")
     return random.randint(min,max)
