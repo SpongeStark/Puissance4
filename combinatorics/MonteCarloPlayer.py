@@ -35,8 +35,9 @@ class MonteCarloPlayer(Player):
                 continue
             # 如果接下来的一步就能赢，那就不用模拟了，直接下就完事了
             if game_copy.has_won():
-                tab[x] += 1
-                continue
+                # tab[x] += 1
+                # continue
+                return x
             # 开干！！！
             result = game_copy.run(player1, player2, showChessBoard=False, showResult=False, showWarnings=False, restart=False)
             if not result == 0: # 平局
