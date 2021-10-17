@@ -8,6 +8,7 @@ import matplotlib.pyplot as pyplot
 from RandomPlayer import RandomPlayer
 from HumanPlayer import HumanPlayer
 from MonteCarloPlayer import MonteCarloPlayer
+from UCTPlayer import UCTPlayer
 
 BOARD_LENGTH = 7
 BOARD_HEIGHT = 6
@@ -65,8 +66,8 @@ def part2():
 
 def test():
     oneGame = Game(BOARD_HEIGHT, BOARD_LENGTH)
-    player1 = RandomPlayer(signal=PLAYER1, name="YK")
-    player2 = RandomPlayer(signal=PLAYER2, name="GYH")
+    player1 = UCTPlayer(signal=PLAYER1, name="YK")
+    player2 = MonteCarloPlayer(signal=PLAYER2, name="GYH")
     oneGame.run(player1,player2)
 
 if __name__ == "__main__":

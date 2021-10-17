@@ -53,7 +53,7 @@ class Game:
         return False
 
     def play(self, x, player: Player):
-        # 如果落子成功，则返回True，否则说明该列已满，或者列序号超出了棋盘，并返回False
+        '''如果落子成功，则返回True，否则说明该列已满，或者列序号超出了棋盘，并返回False'''
         # 判断期棋盘是否满了
         if self.is_complete() or x < 0 or x >= self.nCol:
             return False
@@ -68,7 +68,10 @@ class Game:
         # 如果整列都已落子，也就是说while没有执行，则有大问题！！！
         if i == -1:
             return False
+        # 此处落子
         self.myBoard[i, x] = player.signal
+        # 并将步数加一
+        player.nbStep += 1
 
         return True
     
@@ -136,16 +139,14 @@ class Game:
     #             print("END")
     #             break
 
-    def run(self, *players: Player, showChessBoard=True, showResult=True, showWarnings=True, restart=True):
+    def run(self, *players: Player, showChessBoard=True, showResult=True, restart=True):
         if restart:
             self.reset(players)
         while True:
             for player in players:
-                while not self.play(player.getOneStep(self), player):
-                    if showWarnings:
-                        print("Retry")  # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! wait to progress
-                # if player.isHuman:
-                player.nbStep += 1
+                # 落子
+                self.play(player.getOneStep(self), player)
+                # show棋盘
                 if showChessBoard:
                     print(self.myBoard)
                 # 游戏判断机制

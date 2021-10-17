@@ -95,8 +95,6 @@ def algo_UCB(N,T,first):
     mu_t = [0] * N
     # r(t)
     r = [0] * T
-    # 需要argmax的function
-    my_func = [0] * N
 
     for t in range(0,T):
         if t < first :
@@ -114,9 +112,7 @@ def algo_UCB(N,T,first):
         r[t] = action(a[t])
         # 计算mu_t (i)
         mu_t[a[t]] = ( mu_t[a[t]] * ( N_t[a[t]] - 1 ) + r[t] ) / N_t[a[t]]
-        
-        
-    
+
     return sum(r)
 
 
