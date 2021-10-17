@@ -122,7 +122,7 @@ def algo_UCB(N,T,first):
 
 def main():
     N = 8
-    T = 1000
+    T = 10000
     first = 20
     epsilon = 0.1
     print("Random : ",algo_random(N,T))

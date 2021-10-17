@@ -71,6 +71,13 @@ class Game:
         self.myBoard[i, x] = player.signal
 
         return True
+    
+    def get_available_columns(self):
+        columns = []
+        for i in range(self.nCol):
+            if self.myBoard[0][i] == 0:
+                columns.append(i)
+        return columns
 
     def is_finished(self):
         return self.is_complete() or self.has_won()

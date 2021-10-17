@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 
-import numpy as np
+import random
 
-a = [1,2,3]
-b = np.array(a)
+from numpy import rad2deg
 
-c = list(b)
-print(c.index(2))
+a = [1,3,5,7,8]
+
+b = random.choice(a)
+
+print(b)

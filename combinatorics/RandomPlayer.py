@@ -9,4 +9,4 @@ class RandomPlayer(Player):
 
     def getOneStep(self, game):
         # print(self.name,"has finished one step")
-        return random.randint(0, game.nCol - 1)
+        return random.choice(game.get_available_columns())
