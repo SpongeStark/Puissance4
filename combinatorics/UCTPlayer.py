@@ -1,33 +1,23 @@
-import random
 from Player import Player
-# import numpy as np
+import random
+from RandomPlayer import RandomPlayer
 import copy
 
-from RandomPlayer import RandomPlayer
 
-
-class MonteCarloPlayer(Player):
-
+class UCTPlayer(Player):
+  
     def __init__(self, signal=1, name="untitled"):
         super().__init__(signal, name)
 
-    # def next_step_player(self, game, *players):
-    #     s = np.sum(game.myBoard)
-    #     # for player in players:
-    #     #   if not player.signe==s:
-    #     #     return player
-    #     if players[0].signal == s:
-    #         return players[1]
-    #     return players[0]
-
     def getOneStep(self, game):
-        # print("Monte")
+        # print("UCT")
+        N = game.nCol
+        T = 100
         tab = [0] * game.nCol
-        n = 100
         # next_player = self.next_step_player(game,*players)
         player1 = RandomPlayer(signal=-self.signal)
         player2 = RandomPlayer(signal=self.signal)
-        for i in range(n):
+        for i in range(T):
             game_copy = copy.deepcopy(game)
             x = i % game.nCol
             # 如果下满了，就直接continue
@@ -35,8 +25,6 @@ class MonteCarloPlayer(Player):
                 continue
             # 如果接下来的一步就能赢，那就不用模拟了，直接下就完事了
             if game_copy.has_won():
-                # tab[x] += 1
-                # continue
                 return x
             # 开干！！！
             result = game_copy.run(player1, player2, showChessBoard=False, showResult=False, showWarnings=False, restart=False)
