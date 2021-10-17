@@ -2,10 +2,8 @@
 
 import numpy as np
 
-def myFunc(*myArgs):
-  sum = 0
-  for item in myArgs:
-    sum += item
-  return sum
+a = [1,2,3]
+b = np.array(a)
 
-print(myFunc(1,2,3.8,4))
+c = list(b)
+print(c.index(2))
