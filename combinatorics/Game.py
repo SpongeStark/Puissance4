@@ -29,7 +29,7 @@ class Game:
         for i in range(0, self.nRow):
             for j in range(0, self.nCol):
                 if i + 3 < self.nRow:
-                    temp = np.array([[[i, j], [i + 1, j], [i + 2, j], [i + 3, j]]])
+                    temp = np.array([[(i, j), (i + 1, j), (i + 2, j), (i + 3, j)]])
                     result = np.append(result, temp, axis=0)
                 if j + 3 < self.nCol:
                     temp = np.array([[(i, j), (i, j + 1), (i, j + 2), (i, j + 3)]])
