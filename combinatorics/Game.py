@@ -70,8 +70,6 @@ class Game:
             return False
         # 此处落子
         self.myBoard[i, x] = player.signal
-        # 并将步数加一
-        player.nbStep += 1
 
         return True
     
@@ -145,7 +143,9 @@ class Game:
         while True:
             for player in players:
                 # 落子
-                self.play(player.getOneStep(self), player)
+                self.play(player.getOneStep(self), player)        
+                # 并将步数加一
+                player.nbStep += 1
                 # show棋盘
                 if showChessBoard:
                     print(self.myBoard)

@@ -8,25 +8,14 @@ import matplotlib.pyplot as pyplot
 from RandomPlayer import RandomPlayer
 from HumanPlayer import HumanPlayer
 from MonteCarloPlayer import MonteCarloPlayer
-from UCTPlayer import UCTPlayer
 
 BOARD_LENGTH = 7
 BOARD_HEIGHT = 6
 PLAYER1 = 1
 PLAYER2 = -1
-NUM_ROUND = 100
 
-# oneGame = Game(BOARD_HEIGHT, BOARD_LENGTH)
-#print(np.size(oneGame.get_win_board(),0))
-#on a une liste de 69 quadruplets de cases
-# player1 = RandomPlayer(signal=PLAYER1, name="YK")
-#player2 = RandomPlayer(signal=PLAYER2, name="GYH")
-# player2 = MonteCarloPlayer(signal=PLAYER2, name="GYH")
-
-def part1():
+def count_and_analyze(player1,player2,num_round=100):
     oneGame = Game(BOARD_HEIGHT, BOARD_LENGTH)
-    player1 = RandomPlayer(signal=PLAYER1, name="YK")
-    player2 = RandomPlayer(signal=PLAYER2, name="GYH")
     nb_coups_max = BOARD_HEIGHT*BOARD_LENGTH//2+1
     countWin_player1 = [0]*(nb_coups_max)
     countWin_player2 = [0]*(nb_coups_max)
@@ -34,7 +23,7 @@ def part1():
     player2_win = 0
     nb_tie = 0 #nobody win the game
 
-    for i in range(0,NUM_ROUND):
+    for i in range(0,num_round):
         result = oneGame.run(player1,player2,showChessBoard=False)
         if not result == 0 :
             if result.signal == player1.signal:
@@ -48,29 +37,34 @@ def part1():
 
     print(player1.name,"won",countWin_player1,"in total",player1_win,"times")
     print(player2.name,"won",countWin_player2,"in total",player2_win,"times")
-    print("there are ",nb_tie,"ties during the games, and the probability is",nb_tie/NUM_ROUND) #times of tie
+    print("there are ",nb_tie,"ties during the games, and the probability is",nb_tie/num_round) #times of tie
 
-
-    pyplot.bar(np.arange(nb_coups_max)+0.8,countWin_player1,width=0.4,label='player1',color='r')
-    pyplot.bar(np.arange(nb_coups_max)+1.2,countWin_player2,width=0.4,label='player2',color='b')
+    proba1 = np.array(countWin_player1)/num_round
+    proba2 = np.array(countWin_player2)/num_round
+    pyplot.bar(np.arange(nb_coups_max)+0.8,proba1,width=0.4,label='player1',color='r')
+    pyplot.bar(np.arange(nb_coups_max)+1.2,proba2,width=0.4,label='player2',color='b')
     pyplot.xlabel('nb_de_coups')
-    pyplot.ylabel('nb_de_parties')
+    pyplot.ylabel('probabilite')
     pyplot.legend(loc="upper left")
     pyplot.show()
 
-def part2():
-    oneGame = Game(BOARD_HEIGHT, BOARD_LENGTH)
-    player1 = HumanPlayer(signal=PLAYER1, name="YK")
-    player2 = MonteCarloPlayer(signal=PLAYER2, name="GYH")
-    oneGame.run(player1, player2)
+def part1():
+    #print(np.size(oneGame.get_win_board(),0))
+    #on a une liste de 69 quadruplets de cases
+    player1 = RandomPlayer(signal=PLAYER1, name="YK")
+    player2 = RandomPlayer(signal=PLAYER2, name="GYH")
+    count_and_analyze(player1,player2,10000)
 
-def test():
-    oneGame = Game(BOARD_HEIGHT, BOARD_LENGTH)
-    player1 = UCTPlayer(signal=PLAYER1, name="YK")
+def part2():
+    #MonteCarlo VS Random:
+    player1 = MonteCarloPlayer(signal=PLAYER1, name="YK")
+    player2 = RandomPlayer(signal=PLAYER2, name="GYH")
+    count_and_analyze(player1,player2,100)
+    #MontreCarlo VS MontreCarlo:
+    player1 = MonteCarloPlayer(signal=PLAYER1, name="YK")
     player2 = MonteCarloPlayer(signal=PLAYER2, name="GYH")
-    oneGame.run(player1,player2)
+    count_and_analyze(player1,player2,100)
 
 if __name__ == "__main__":
     # part1()
-    # part2()
-    test()
+    part2()
