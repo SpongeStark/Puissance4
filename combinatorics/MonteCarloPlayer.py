@@ -7,8 +7,9 @@ from RandomPlayer import RandomPlayer
 
 class MonteCarloPlayer(Player):
 
-    def __init__(self, signal=1, name="untitled"):
+    def __init__(self, signal=1, name="untitled", simulation_times=50):
         super().__init__(signal, name)
+        self.num_sim = simulation_times
 
 
     def division_array(self,array_mem, array_denom):
@@ -30,7 +31,7 @@ class MonteCarloPlayer(Player):
         gain = [0] * game.nCol
         total = [0] * game.nCol
         available_columns = game.get_available_columns()
-        n = 50
+        n = self.num_sim
         player1 = RandomPlayer(signal=-self.signal)
         player2 = RandomPlayer(signal=self.signal)
         for i in range(n):

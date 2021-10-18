@@ -7,8 +7,9 @@ import copy
 
 class UCTPlayer(Player):
   
-    def __init__(self, signal=1, name="untitled", first=10):
+    def __init__(self, signal=1, name="untitled", simulation_times=50, first=10):
         super().__init__(signal, name)
+        self.num_sim = simulation_times
         self.first = first
     
     def division_array(self,array_mem, array_denom):
@@ -40,7 +41,7 @@ class UCTPlayer(Player):
         # print("UCT")
         # 初始化一些标识符
         N = game.nCol
-        T = 50
+        T = self.num_sim
         # 初始化一些中间变量
         a = []
         # N_t (i)
@@ -84,5 +85,8 @@ class UCTPlayer(Player):
             if total[a[t]] != 0:
                 mu_t[a[t]] = gain[a[t]] / total[a[t]]
 
+        # 打印对战结果
+        print(mu_t)
         # 返回argmax
         return self.getArgMax(mu_t,N_t,T-1)
+        # return mu_t.index(max(mu_t))
