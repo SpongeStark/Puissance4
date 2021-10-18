@@ -84,9 +84,6 @@ class UCTPlayer(Player):
             # 计算mu_t (i)
             if total[a[t]] != 0:
                 mu_t[a[t]] = gain[a[t]] / total[a[t]]
-
-        # 打印对战结果
-        # print(mu_t)
         
-        # 返回argmax
-        return self.getArgMax(mu_t,N_t,T-1)
+        # # 返回最大值的下标，即赢的概率最大的列
+        return mu_t.index(max(mu_t))
