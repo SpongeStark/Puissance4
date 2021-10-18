@@ -86,7 +86,7 @@ class UCTPlayer(Player):
                 mu_t[a[t]] = gain[a[t]] / total[a[t]]
 
         # 打印对战结果
-        print(mu_t)
+        # print(mu_t)
+        
         # 返回argmax
         return self.getArgMax(mu_t,N_t,T-1)
-        # return mu_t.index(max(mu_t))

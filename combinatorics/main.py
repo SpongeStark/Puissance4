@@ -72,11 +72,11 @@ def part3():
     # player2 = RandomPlayer(signal=PLAYER2, name="GYH")
     # count_and_analyze(player1,player2,100)
     #MontreCarlo VS MontreCarlo:
-    player1 = MonteCarloPlayer(signal=PLAYER1, name="YK")
-    player2 = UCTPlayer(signal=PLAYER2, name="GYH",  simulation_times=50 ,first=50)
-    # count_and_analyze(player1,player2,20)
-    oneGame = Game(BOARD_HEIGHT, BOARD_LENGTH)
-    oneGame.run(player1, player2)
+    player1 = MonteCarloPlayer(signal=PLAYER1, name="YK", simulation_times=100)
+    player2 = UCTPlayer(signal=PLAYER2, name="GYH",  simulation_times=100 ,first=50)
+    count_and_analyze(player1,player2,20)
+    # oneGame = Game(BOARD_HEIGHT, BOARD_LENGTH)
+    # oneGame.run(player1, player2)
 
 if __name__ == "__main__":
     # part1()
