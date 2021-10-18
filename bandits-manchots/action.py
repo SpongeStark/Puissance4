@@ -28,5 +28,5 @@ def action(i):
     #             0.5475,0.6850,0.3121,0.9555,
     #             0.4289,0.5359,0.9913,0.1589,
     #             0.1007,0.4551,0.8026,0.2781]
-    leviers = get_data(path='./data.csv', head = True)
+    leviers = get_data(path='./data2.csv', head = True)
     return one_action(leviers,i)

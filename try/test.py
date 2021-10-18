@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import csv
+import numpy as np
 
 
 def get_data(path,head=False):
@@ -17,4 +18,7 @@ def get_data(path,head=False):
     return result
 
 
-print(get_data(path='./data.csv',head=True))
+# print(get_data(path='./data.csv',head=True))
+a = np.zeros((2,3),dtype=np.int)
+print(a)
+

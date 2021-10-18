@@ -42,8 +42,8 @@ def count_and_analyze(player1,player2,num_round=100):
 
     proba1 = np.array(countWin_player1)/num_round
     proba2 = np.array(countWin_player2)/num_round
-    pyplot.bar(np.arange(nb_coups_max)+0.8,proba1,width=0.4,label='player1',color='r')
-    pyplot.bar(np.arange(nb_coups_max)+1.2,proba2,width=0.4,label='player2',color='b')
+    pyplot.bar(np.arange(nb_coups_max)+0.8,proba1,width=0.4,label=player1.name,color='r')
+    pyplot.bar(np.arange(nb_coups_max)+1.2,proba2,width=0.4,label=player2.name,color='b')
     pyplot.xlabel('nb_de_coups')
     pyplot.ylabel('probabilite')
     pyplot.legend(loc="upper left")
@@ -68,9 +68,9 @@ def part2():
 
 def part3():
     #MonteCarlo VS UCTPlayer:
-    player1 = MonteCarloPlayer(signal=PLAYER1, name="YK", simulation_times=50)
-    player2 = UCTPlayer(signal=PLAYER2, name="GYH",  simulation_times=50 ,first=20)
-    count_and_analyze(player1,player2,100)
+    player1 = MonteCarloPlayer(signal=PLAYER1, name="Monte Carlo", simulation_times=100)
+    player2 = UCTPlayer(signal=PLAYER2, name="UCT",  simulation_times=100 ,first=20)
+    count_and_analyze(player2,player1,100)
 
 if __name__ == "__main__":
     # part1()

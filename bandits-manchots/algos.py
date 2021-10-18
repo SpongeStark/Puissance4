@@ -2,7 +2,7 @@ from math import log, sqrt
 from action import action
 import random
 
-FIRST = 20
+FIRST = 30
 EPSILON = 0.1
 
 
