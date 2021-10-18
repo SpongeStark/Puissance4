@@ -23,7 +23,7 @@ def array_round(myList):
 
 def main():
     N = 8 # 臂的数量
-    T = 10000 # 总学习次数
+    T = 100 # 总学习次数
     print("Random : ", array_round(apply_algos(N,T,1)))
     print("Greedy : ", array_round(apply_algos(N,T,2)))
     print("epsilon-Greedy : ", array_round(apply_algos(N,T,3)))
