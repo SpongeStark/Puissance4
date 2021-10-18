@@ -1,11 +1,20 @@
 #!/usr/bin/python3
 
-import random
+import csv
 
-from numpy import rad2deg
 
-a = [1,3,5,7,8]
+def get_data(path,head=False):
+    result = []
+    # 读取CSV文件
+    data = list(csv.reader(open(path)))
+    # 清除表头
+    if head:
+        del data[0]
+    # 开始读取数据，并转化成小数
+    for item in data:
+        temp = float(item[0])
+        result.append(temp)
+    return result
 
-b = random.choice(a)
 
-print(b)
+print(get_data(path='./data.csv',head=True))
