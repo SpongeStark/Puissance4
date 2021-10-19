@@ -7,17 +7,17 @@ EPSILON = 0.1
 
 
 def update(mu_t, N_t, a_t, r_t):
-    '''一个工具函数，以 a_t 和 r_t 为依据，更新参数 mu_t 和 N_t，并返回(mu_t,N_t)元组 | 
-       une fonction d'outil, selon a_t et r_t, pour mettre à jour mu_t et N_t, 
-       et retourner le tuple (mu_t,N_t)'''
+    '''一个工具函数，以 a_t 和 r_t 为依据，更新参数 mu_t 和 N_t | 
+       une fonction d'outil, selon a_t et r_t, pour mettre à jour mu_t et N_t'''
     mu_t[a_t] = ( mu_t[a_t] * N_t[a_t] + r_t ) / ( N_t[a_t] + 1 )
     N_t[a_t] += 1
-    return (mu_t,N_t)
 
 def algo_random(mu_t, N_t):
     '''随机算法 | Algo d'aléatoire'''
     i = random.randint(0,len(mu_t)-1)
-    return update(mu_t=mu_t, N_t=N_t, a_t=i, r_t=action(i))
+    result = action(i)
+    update(mu_t=mu_t, N_t=N_t, a_t=i, r_t=result)
+    return result
 
 def algo_greedy(mu_t, N_t):
     '''greedy算法 | algo de Greedy'''
@@ -27,7 +27,9 @@ def algo_greedy(mu_t, N_t):
         return algo_random(mu_t, N_t)
     # 从某个数开始，进行最大化求解 | à partir d'un nombre, on fait "argmax"
     i = mu_t.index(max(mu_t))
-    return update(mu_t=mu_t, N_t=N_t, a_t=i, r_t=action(i))
+    result = action(i)
+    update(mu_t=mu_t, N_t=N_t, a_t=i, r_t=result)
+    return result
 
 def algo_epsilon_greedy(mu_t, N_t):
     '''epsilon-greedy算法 | algo de epsilon-Greedy'''
@@ -38,7 +40,9 @@ def algo_epsilon_greedy(mu_t, N_t):
     if sum(N_t) < first or prob < epsilon :
         return algo_random(mu_t, N_t)
     i = mu_t.index(max(mu_t))
-    return update(mu_t=mu_t, N_t=N_t, a_t=i, r_t=action(i))
+    result = action(i)
+    update(mu_t=mu_t, N_t=N_t, a_t=i, r_t=result)
+    return result
 
 def getArgMax(mu_t,N_t,t):
     '''置信区间上界，执行argmax操作'''
@@ -58,4 +62,6 @@ def algo_UCB(mu_t,N_t):
     if t < first :
         return algo_random(mu_t, N_t)
     i = getArgMax(mu_t, N_t, t)
-    return update(mu_t=mu_t, N_t=N_t, a_t=i, r_t=action(i))
+    result = action(i)
+    update(mu_t=mu_t, N_t=N_t, a_t=i, r_t=result)
+    return result
