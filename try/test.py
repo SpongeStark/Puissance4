@@ -1,24 +1,13 @@
 #!/usr/bin/python3
 
-import csv
 import numpy as np
+import matplotlib.pyplot as pyplot
 
-
-def get_data(path,head=False):
-    result = []
-    # 读取CSV文件
-    data = list(csv.reader(open(path)))
-    # 清除表头
-    if head:
-        del data[0]
-    # 开始读取数据，并转化成小数
-    for item in data:
-        temp = float(item[0])
-        result.append(temp)
-    return result
-
-
-# print(get_data(path='./data.csv',head=True))
-a = np.zeros((2,3),dtype=np.int)
-print(a)
-
+pyplot.bar(np.arange(5),[0,282/500,0,0,0],width=0.4,label="Random",color='r')
+pyplot.bar(np.arange(5),[0,0,427/500,0,0],width=0.4,label="Greedy",color='b')
+pyplot.bar(np.arange(5),[0,0,0,414/500,0],width=0.4,label="Epsilon-Greedy",color='y')
+pyplot.bar(np.arange(5),[0,0,0,0,417/500],width=0.4,label="UCB",color='g')
+pyplot.xlabel('Algorithme')
+pyplot.ylabel('probabilité')
+pyplot.legend(loc="upper left")
+pyplot.show()

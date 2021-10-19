@@ -17,7 +17,7 @@ PLAYER2 = -1
 
 def count_and_analyze(player1,player2,num_round=100):
     oneGame = Game(BOARD_HEIGHT, BOARD_LENGTH)
-    nb_coups_max = BOARD_HEIGHT*BOARD_LENGTH//2+1
+    nb_coups_max = BOARD_HEIGHT*BOARD_LENGTH//2+2
     countWin_player1 = [0]*(nb_coups_max)
     countWin_player2 = [0]*(nb_coups_max)
     player1_win = 0
@@ -45,8 +45,8 @@ def count_and_analyze(player1,player2,num_round=100):
 
     proba1 = np.array(countWin_player1)/num_round
     proba2 = np.array(countWin_player2)/num_round
-    pyplot.bar(np.arange(nb_coups_max)+0.8,proba1,width=0.4,label=player1.name,color='r')
-    pyplot.bar(np.arange(nb_coups_max)+1.2,proba2,width=0.4,label=player2.name,color='b')
+    pyplot.bar(np.arange(nb_coups_max)-0.2,proba1,width=0.4,label=player1.name,color='r')
+    pyplot.bar(np.arange(nb_coups_max)+0.2,proba2,width=0.4,label=player2.name,color='b')
     pyplot.xlabel('nb_de_coups')
     pyplot.ylabel('probabilite')
     pyplot.legend(loc="upper left")
@@ -70,12 +70,22 @@ def part2():
     count_and_analyze(player1,player2,100)
 
 def part3():
-    #MonteCarlo VS UCTPlayer:
+    # MonteCarlo VS UCTPlayer:
     player1 = MonteCarloPlayer(signal=PLAYER1, name="MonteCarlo", simulation_times=100)
     player2 = UCTPlayer(signal=PLAYER2, name="UCT",  simulation_times=100 ,first=20)
-    count_and_analyze(player1,player2,200)
+    # count_and_analyze(player1,player2,100)
+    oneGame = Game(BOARD_HEIGHT, BOARD_LENGTH)
+    oneGame.run(player1,player2)
+
+def part4():
+    # Random VS UCTPlayer:
+    player1 = RandomPlayer(signal=PLAYER1, name="Random")
+    player2 = UCTPlayer(signal=PLAYER2, name="UCT",  simulation_times=100 ,first=20)
+    count_and_analyze(player1,player2,100)
 
 if __name__ == "__main__":
     # part1()
     # part2()
     part3()
+    # part4()
+    print("The program finished")
